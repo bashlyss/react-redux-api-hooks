@@ -25,7 +25,6 @@ class QueryObject extends Object {
     }
     this.apiParams = data.apiParams || {};
     this.reduxDataType = data.api.reduxDataType;
-    this.cacheKey = data.cacheKey || data.reduxDataType;
     this.api = data.api;
 
     this.result = null;
@@ -35,7 +34,7 @@ class QueryObject extends Object {
   }
   initializeRequest() {
     this.status = PENDING;
-    this.request = this.api.query(this.apiParams, this.cacheKey).then(
+    this.request = this.api.query(this.apiParams).then(
       response => {
         this.result = response.data
         this.status = SUCCESS;
