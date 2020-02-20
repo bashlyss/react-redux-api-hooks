@@ -49,19 +49,13 @@ class QueryObject extends Object {
   }
   retrieveResult() {
     if (this.status === NOT_STARTED || this.status === PENDING) {
-      return {
-        loading: true,
-        data: null,
-      };
+      throw this.request;
     }
     if (this.status === SUCCESS) {
-      return {
-        loading: false,
-        data: this.result,
-      };
+      return this.result;
     }
     if (this.status === ERROR) {
-      throw new Error(this.error);
+      throw this.error;
     }
     throw new ConfigurationError("Internal request status invalid");
   }

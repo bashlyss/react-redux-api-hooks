@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useCallback, useMemo, useEffect } from "react";
+import { useCallback, useMemo } from "react";
 
 const applyFilter = (data, filter) => {
   if (typeof filter === 'function') {
@@ -38,18 +38,9 @@ const useDataFilter = (queryData, filterParams) => {
 
   }, [filterParams, queryData.apiParams, data]);
 
-  useEffect(() => {
-    try {
-      const result = queryData.retrieveResult();
-      if (result.loading) {
-        throw Error("Request is still loading");
-      }
-    } catch (err) {
-      throw err.message;
-    }
-  }, [queryData, queryData.status]);
+  const result = queryData.retrieveResult();
 
-  return parsedData;
+  return parsedData || result;
 };
 
 export default useDataFilter;
