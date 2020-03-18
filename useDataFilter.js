@@ -3,7 +3,7 @@ import { useCallback, useMemo } from "react";
 
 const applyFilter = (data, filter) => {
   if (typeof filter === 'function') {
-    return data.filter(filter);
+    return Array.prototype.filter(filter, data);
   }
   const keys = Object.keys(filter);
   return Array.prototype.filter(elem => {
