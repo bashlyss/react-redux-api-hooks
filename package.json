@@ -1,6 +1,6 @@
 {
   "name": "react-redux-api-hooks",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Set of react hooks to link into redux store",
   "main": "index.js",
   "dependencies": {
