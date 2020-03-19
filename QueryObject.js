@@ -36,7 +36,7 @@ class QueryObject extends Object {
     this.status = PENDING;
     this.request = this.api.query(this.apiParams).then(
       response => {
-        this.result = response.data
+        this.result = response
         this.status = SUCCESS;
       }
     ).catch(
