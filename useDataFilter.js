@@ -1,12 +1,16 @@
 import { useSelector } from 'react-redux';
 import { useCallback, useMemo } from "react";
 
-const applyFilter = (data, filter) => {
+const applyFilter = (_data, filter) => {
+  let data = _data;
+  if (!Array.isArray(data)) {
+    data = Object.values(data);
+  }
   if (typeof filter === 'function') {
-    return Array.prototype.filter(filter, data);
+    return data.filter(filter);
   }
   const keys = Object.keys(filter);
-  return Array.prototype.filter(elem => {
+  return data.filter(elem => {
     let valid = true;
     keys.forEach(key => {
       if (typeof filter[key] === 'function') {
@@ -14,7 +18,7 @@ const applyFilter = (data, filter) => {
       } else {
         valid = valid && filter[key] === elem[key];
       }
-    }, data);
+    });
     return valid;
   });
 };
@@ -35,7 +39,7 @@ const useDataFilter = (queryData, filterParams) => {
         _data = applyFilter(_data, filter);
       }
     } 
-
+    return _data;
   }, [filterParams, queryData.apiParams, data]);
 
   const result = queryData.retrieveResult();
